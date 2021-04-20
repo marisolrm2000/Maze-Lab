@@ -39,11 +39,8 @@ bool Pathfinder::importMaze(string file_name)
 {
 	cout << "In importMaze" << endl;
   cout << "importMaze from " << file_name << endl;
-	int copy_maze[5][5][5];
   ifstream file(file_name.c_str());
 	string line ="";
-	bool valid = true;
-	if (!file.is_open()) {return false;}
   if (file.is_open())
   {
 		for(int x = 0; x < SIZE; x++){  
@@ -57,39 +54,21 @@ bool Pathfinder::importMaze(string file_name)
    	  		{
 						string input;
 						ss >> input;
-						if (input=="1"||input=="0")copy_maze[x][y][z]= stoi(input);
-						else{valid = false;}
+						if (input=="1"||input=="0")maze[x][y][z]= stoi(input);
+						else{ cout << "hi" << endl;return false;}
    	  		}
 				}
 			}
    	 }
 		getline(file, line);
-		if (file.eof() && x < SIZE-1){
-			valid = false;}
-		if(!file.eof()&& x == SIZE - 1){valid = false;}
 		}
   }
-	if (copy_maze[0][0][0]== 0 || copy_maze[4][4][4]==0) valid=!valid;
-	if (valid){
-				for (int x = 0; x < SIZE; x++)
-   {
-     for (int y = 0; y < SIZE; y++)
-     {
-     	for (int z = 0; z < SIZE; z++)
-     	{
-				maze[x][y][z]=copy_maze[x][y][z];
-
-     	}
-     }	
-   }
-	 return true;
-	}
-	else return false;
+  return (true);
 }
 bool Pathfinder::findPath(int x, int y, int z)
 {
 	string out = "";
-	out += "(" + to_string(z) +", " + to_string(y) + ", " + to_string(x) + ")";
+	out += to_string(x) +"," + to_string(y) + "," + to_string(z);
   P.push_back(out);
   if ((x < 0 || x >= SIZE) || 
     (y < 0 || y >= SIZE) || 
@@ -114,7 +93,6 @@ bool Pathfinder::findPath(int x, int y, int z)
 vector<string> Pathfinder::solveMaze()
 {
   cout << "In solveMaze" << endl;
-	P.clear();
 	int copy_maze[5][5][5];
 	for (int x = 0; x < SIZE; x++)
    {
@@ -126,7 +104,7 @@ vector<string> Pathfinder::solveMaze()
      	}
      }	
    }
-	findPath(0, 0, 0);
+	findPath(0,0,0);
 		for (int x = 0; x < SIZE; x++)
    {
      for (int y = 0; y < SIZE; y++)
