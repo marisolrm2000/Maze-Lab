@@ -13,8 +13,18 @@ class Pathfinder
 {
 public:
 	Pathfinder() {
-        srand((unsigned) time(0));
-    }
+  	srand((unsigned) time(0));
+		for (int x = 0; x < SIZE; x++)
+  		{
+   			for (int y = 0; y < SIZE; y++)
+   				{
+   				for (int z = 0; z < SIZE; z++)
+   				{
+						maze[x][y][z]=1;
+   				}
+   			}	
+  	  }
+  }
 	virtual ~Pathfinder() {}
 
 	//Part 1-----------------------------------------------------------------------------------
@@ -91,13 +101,11 @@ public:
     bool findPath(int x, int y, int z);
 	//-----------------------------------------------------------------------------------------
     protected:
-    const int X_SIZE = 10;
-    const int Y_SIZE = 10;
-    const int Z_SIZE = 10;
+    const int SIZE = 5;
     const int BACKGROUND = 1;
     const int WALL = 0;
     const int TEMPORARY = 2;
     const int PATH = 3;
-    int maze[10][10][10];
+    int maze[5][5][5];
     vector<string> P;
 };
